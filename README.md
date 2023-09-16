@@ -1,2 +1,2 @@
 # STAT212
-STAT212 Biostatistics in UIUC, 23fall
+STAT212 Biostatistics in UIUC, 23fall, labs(using R)

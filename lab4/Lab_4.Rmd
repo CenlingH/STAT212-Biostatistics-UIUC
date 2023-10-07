@@ -10,6 +10,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+### <span style="color:blue ! important;">Name: Yiran Hu, netid: yiranhu3</span>     
 
 ## Assignment Overview
 
@@ -64,18 +65,18 @@ Is there any association between students' heart rates (measured in beats per mi
 ggplot(data = Class_F23, aes(x = coffee, y = bpm, fill = coffee)) +
   geom_boxplot() +
   stat_boxplot(geom = "errorbar") +
-  labs(x = "whether drink coffee", y = "heart rate)", title = "boxplot of association between coffee & bpm")
+  labs(x = "whether drink coffee", y = "heart rate", title = "boxplot of association between coffee & bpm")
 ```
 
 
 **Do you see any difference in BPM between these two groups of students? If so, which group seems to have higher BPM values and by how much?**
 
-<span style="color:blue;">There are not big differences between the two groups.</span>
+<span style="color:blue !important;">There are not big differences between the two groups.</span>
 
 
 **Is this the result you expected?**
 
-<span style="color:blue;">No, I thought people who drank coffee would have higher heart rate.</span>
+<span style="color:blue !important;">No, I thought people who drank coffee would have higher heart rate.</span>
 
 ## Question 2 (5pts)
 
@@ -86,7 +87,7 @@ Next, let’s look at the values student reported as their expected salary in 20
 ```{r}
 summary(Class_F23$salary)
 ```
-<span style="color:blue;">
+<span style="color:blue !important;">
 min: 1.000e+00,
 Q1: 9.775e+04,
 Q2: 1.300e+05,
@@ -112,11 +113,11 @@ ggplot(data = Class_F23, aes(x = salary)) +
 
 **The middle 50% of students reported expected salary levels between what two values?**
 
-<span style="color:blue;">Between Q1 & Q3: from 9.775e+04 to 2.000e+05.</span>
+<span style="color:blue !important;">Between Q1 & Q3: from 9.775e+04 to 2.000e+05.</span>
 
 **Why does the scale of this plot stretch so high? Are class responses scattered pretty evenly across this range, or more concentrated in one numeric range of this plot? Hint: sort the salary variable and scroll to the bottom**
 
-<span style="color:blue;">Because some students answered very large numbers like 1e+11. But the class responses are concentrated around $10^4$ to $10^5$.</span>
+<span style="color:blue !important;">Because some students answered very large numbers like 1e+11. But the class responses are concentrated around $10^4$ to $10^5$.</span>
 
 
 
@@ -140,11 +141,11 @@ Class_F23 |>
 
 **Based on the summary stats, does there seem to be any association between these two variables? How might you explain this result in context?**
 
-<span style="color:blue;">I think there is some relationships between the two variables. Because on the summary stats, students who plan "A job" or "Medical School" expects higher salaries. Salaries are related to the job, becoming a doctor or dentist may have more salary on average. But some jobs like PA may have low salary. </span>
+<span style="color:blue !important;">I think there is some relationships between the two variables. Because on the summary stats, students who plan "A job" or "Medical School" expects higher salaries. Salaries are related to the job, becoming a doctor or dentist may have more salary on average. But some jobs like PA may have low salary. </span>
 
 **Which grad plan group has the highest standard deviation, and what do you think is contributing to that? Hint: sort the salary column and scroll to the bottom!**
 
-<span style="color:blue;">"A job" group. Because one student choose 1e+11 as expected salary, but other students' salaries are about 1e+5 or 1e+4. That makes the standard deviation large.</span>
+<span style="color:blue !important;">"A job" group. Because one student choose 1e+11 as expected salary, but other students' salaries are about 1e+5 or 1e+4. That makes the standard deviation large.</span>
 
 
 ## Question 4 (5pts)
@@ -167,7 +168,7 @@ Class_F23 |>
 
 **Do you see any association between these variables? How might you explain this relationship?**
 
-<span style="color:blue;">I think the more time students spend on exercise, the less time they will spend on screen. Because students who like using screens may spend a lot of time on that, so they have less time to do exercise.</span>
+<span style="color:blue !important;">I think the more time students spend on exercise, the less time they will spend on screen. Because students who like using screens may spend a lot of time on that, so they have less time to do exercise.</span>
 
 
 ## Question 5 (5pts)
@@ -203,7 +204,7 @@ Class_F23 |>
 
 **Based on the results, how well do you think the class did at choosing at random? **
 
-<span style="color:blue;">When choosing a number or letter, they seem to choose specific letters or numbers more often, like letter A and number 17. It looks not very random.</span>
+<span style="color:blue !important;">When choosing a number or letter, they seem to choose specific letters or numbers more often, like letter A and number 17. It looks not very random.</span>
 
 
 ## Question 6 (5pts)
@@ -230,7 +231,7 @@ ggplot(data = Class_F23, aes(x = acad_level, fill = car)) +
   geom_bar(color = "black", position = "fill") +
   labs(x = "academic level", 
        y = "proportion of having a car or not",
-       fill = "car", 
+       fill="whether own a car",
        title = "relationship between acad_level and car")
 ```
 
@@ -238,14 +239,15 @@ ggplot(data = Class_F23, aes(x = acad_level, fill = car)) +
 
 **Does there appear to be any association between students’ academic level and car ownership status? Briefly explain what you notice in your graph to make this conclusion.**
 
-<span style="color:blue;">Yes. As academic level increases, a larger proportion of students have a car.</span>
+<span style="color:blue !important;">Yes. As academic level increases, a larger proportion of students have a car.</span>
 
 ## Question 7 (5pts)
 
 What’s a multivariate question that you have about the class data? 
 
 **Pose a question** involving two variables in our class dataset.
-<span style="color:blue;">Are there any relations between sleep_total and academic level?</span>
+
+<span style="color:blue !important;">Are there any relations between sleep_total and academic level?</span>
 
 **Create an appropriate visualization and/or summary table** that helps you address this question. 
 
@@ -262,5 +264,5 @@ ggplot(data = Class_F23, aes(x = acad_level, y = sleep_total, color = acad_level
 
 **Briefly answer your question** based on your findings in the data
 
-<span style="color:blue;">The distribution of sleep in 4 acad_level looks very similar. The mean of sleep_total slightly decrease. </span>
+<span style="color:blue !important;">The distribution of sleep in 4 acad_level looks very similar. The mean of sleep_total slightly decrease as the grade increases. </span>
 

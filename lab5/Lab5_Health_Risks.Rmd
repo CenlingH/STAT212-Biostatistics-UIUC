@@ -41,7 +41,7 @@ heart = read_csv("heart_new.csv")
 View data. Run once below, but delete before knitting your markdown!
 
 ```{r}
-View(heart)
+#View(heart)
 ```
 
 ## Variables

@@ -1,10 +1,8 @@
-# STAT212
+# STAT212 23fall
 STAT212 Biostatistics in UIUC, 23fall, labs(using R)
-
-not include the original markdown file
 
 the PDF in each folder is the solution, no guarantee to be 100% correct
 
-lab1 folder doesn't look so good, it's messy, but things will be better from lab2
+lab 1 folder doesn't look so good, it's messy, but starting from lab 2 it looks better
 
-（if you want to switch to another branch, use "git checkout XXX", XXX is your aim branch name）
+(if you want to switch to another branch, use "git checkout XXX", XXX is your aim branch name)

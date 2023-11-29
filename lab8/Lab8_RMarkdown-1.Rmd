@@ -1,15 +1,8 @@
 ---
-title: "Lab 8 – Flint Water (Sample Solutions)"
-output:
-  html_document:
-    df_print: paged
-    toc: yes
-  html_notebook:
-    theme: readable
-    toc: yes
-    toc_float: yes
-  pdf_document: default
+title: "Lab 8 – Flint Water"
+output: html_document
 ---
+### <span style="color:blue ! important;">Name: Yiran Hu, netid: yiranhu3</span> 
 
 ### Assignment Overview
 
@@ -26,7 +19,7 @@ output:
 - Load `tidyverse` package.
 
 ```{r}
-
+library(tidyverse)
 ```
 
 -	Download the Flint.xlsx file to your computer and then load it into your RMarkdown file. You might also need to library `readxl` to do that.
@@ -35,7 +28,6 @@ output:
 ```{r message=FALSE}
 library(readxl)
 Flint = read_excel("Flint.xlsx")
-
 # Note, your data file should be saved in the same folder as your RMarkdown. 
 # Also match the name of the data reference above with the name of the data file. For example, it might save as Flint.xlsx, or Flint_1_.xlsx or something else.
 ```
@@ -77,18 +69,23 @@ To get started, let’s visualize what our variable of interest looks like. Crea
 -	Scale the x axis to have more frequent tick marks than is shown by default (you be the judge)
 
 ```{r}
-
+ggplot(data=Flint, aes(x=Lead_ppb))+
+  geom_density(fill="pink")+
+  labs(title="Density curve of Lead_ppb", x="Lead in parts per billion (ppb)")+
+  scale_x_continuous(breaks = seq(0,50,5), limits = c(0,50))
 ```
 
 **Report the numeric summary result of this variable (min, Q1, Q2, mean, Q3, max).**
 
 ```{r}
-
+summary(Flint$Lead_ppb)
 ```
+<span style="color:blue ! important;">min: 0.031, Q1: 0.509, Q2: 1.843, mean: 8.208, Q3: 5.155, max: 1051.000</span> 
+
 
 **Describe the shape of this distribution.**
 
-
+<span style="color:blue ! important;">The distribution of the variable "Lead_ppb" is highly right skewed.</span> 
 
 
 ## Question 2
@@ -103,7 +100,13 @@ Now, let’s create jitter plots to visually compare the lead levels at the thre
 
 
 ```{r}
-
+ggplot(data=Flint, aes(x=Time, y=Lead_ppb, color=Time))+
+  geom_jitter(width=0.1, alpha=0.4)+
+  scale_color_brewer(palette="Set1")+
+  scale_y_continuous(breaks = seq(0,70,10), limits = c(0,70))+
+  theme_bw()+
+  labs(title="Jitter plot of Lead_ppb at different Times", y="Lead in parts per billion (ppb)")
+  
 ```
 
 
@@ -118,11 +121,18 @@ Using a pipe, create a summary table to compare lead levels, separated in rows b
 
 
 ```{r}
+Flint |>
+  group_by(Time) |>
+  summarise(Median_Lead_Level = round(median(Lead_ppb), digits = 3),
+            Mean_Lead_Level = round(mean(Lead_ppb), digits = 3),
+            Lead_above5 = round(mean(Lead_ppb>5), digits = 3),
+            Lead_above15=round(mean(Lead_ppb>15),digits = 3))
 
 ```
 
 Notice that the first draw and 45-second groups have nearly identical means. Consider your previous graph and briefly explain: **Which group do you think is producing the consistently highest lead measurements? What might be causing that spike in the mean for the other group? **
 
+<span style="color:blue ! important;">I would say the "First Draw" group is producing the consistently highest lead measurements. The high mean lead level in "Forty Five Sec" group may be caused by several very high measurements. For example, one point is above 1000 ppb.</span> 
 
 ## Question 4
 
@@ -138,7 +148,14 @@ Create side by side **boxplots** of these same two variables and…
 _Note the warning about “rows containing non-finite values” just means data points were excluded because they were outside the 0 to 50 range you limited your graph to—we did that on purpose!_
 
 ```{r}
-
+ggplot(data=Flint, aes(x=Time, y=Lead_ppb, fill=Time))+
+  geom_boxplot()+
+  stat_boxplot(geom = "errorbar") +
+  scale_fill_brewer(palette = "YlGn")+
+  scale_y_continuous(breaks = seq(0,50,5),limits = c(0,50))+
+  theme_bw()+
+  theme(legend.position = "none")+
+  labs(title="Boxplot of Lead_ppb by Time", y="Lead in parts per billion (ppb)")
 ```
 
 
@@ -155,7 +172,13 @@ Let’s now compare lead concentrations across Wards (precincts). Using a pipe, 
 
 
 ```{r}
-
+Flint |>
+  filter(Time=="First Draw") |>
+  group_by(Ward) |>
+  summarise(Median_Lead_Level=round(median(Lead_ppb), digits = 3),
+            Mean_Lead_Level=round(mean(Lead_ppb), digits = 3),
+            Proportion_above5=round(mean(Lead_ppb>5), digits = 3),
+            Proportion_above15=round(mean(Lead_ppb>15), digits = 3))
 ```
 
 
@@ -171,7 +194,15 @@ Using a pipe, filter to only include first draw measurements. Then inside this p
 
 
 ```{r}
-
+Flint |>
+  filter(Time=="First Draw") |>
+  ggplot(aes(x=Ward, y=Lead_ppb, color=Ward))+
+  geom_jitter(width=0.8, alpha=0.9)+
+  scale_color_brewer(palette="BuPu")+
+  scale_y_continuous(breaks = seq(0,50,5),limits=c(0,50))+
+  theme_dark()+
+  theme(legend.position = "none")+
+  labs(title = "jitter plot of Lead_ppb by Ward(in First Draw)", y="Lead in parts per billion (ppb)")
 ```
 
 
@@ -188,10 +219,19 @@ Now, let’s make a graph that compares lead levels across Wards and across time
 -	Remove the color legend (you can do this in the theme() function).
 
 ```{r}
-
+ggplot(data=Flint, aes(x=Ward, y=Lead_ppb, fill=Time))+
+  geom_boxplot()+
+  stat_boxplot(geom = "errorbar")+
+  scale_fill_brewer(palette="Spectral")+
+  scale_y_continuous(breaks = seq(0,50,5), limits = c(0,50))+
+  labs(title = "boxplot of lead level across Wards and times", y="Lead in parts per billion (ppb)")+
+  theme_bw()+
+  theme(legend.position = "none")
 ```
 
 If you were advising a resident in Flint who hadn’t had their water tested for lead, **could you give them any data-based advice about how to maximize their safety if using water from their faucet?**
+
+<span style="color:blue ! important;">To maximize safety, based on the data collected across the 9 Wards, people should use water after running the faucet for 2 minutes or more. Though this may waste a lot of water, the data shows a tendency that if running the faucet longer, the lead remains will get lower.</span> 
 
 
 
